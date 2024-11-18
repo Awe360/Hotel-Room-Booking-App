@@ -1,0 +1,12 @@
+/* Custom styles for the carousel pagination thumbnails */
+.carousel .thumb {
+    width: 50px;   /* Adjust the width */
+    height: 50px;  /* Adjust the height */
+    margin-right: 10px; /* Spacing between thumbnails */
+    border: 2px solid #ccc; /* Optional: border around thumbnails */
+  }
+  
+  .carousel .thumb.selected {
+    border-color: #000; /* Highlight selected thumbnail */
+  }
+  
