@@ -109,7 +109,7 @@ export function Booking({ userId }) {
             const toDateObj = new Date(`${year}-${month}-${day}`); 
             return toDateObj >= Date.now();
           }
-          return false;
+          return false; 
         });
     
         

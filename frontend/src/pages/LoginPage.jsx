@@ -63,6 +63,7 @@ const LoginPage = () => {
 						{isLoading ? <Loader className='w-6 h-6 animate-spin  mx-auto' /> : "Login"}
 					</motion.button>
 				</form>
+				
 			</div>
 			<div className='px-8 py-4  bg-opacity-50 flex justify-center'>
 				<p className='text-sm '>

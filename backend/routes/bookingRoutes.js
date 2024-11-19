@@ -3,8 +3,10 @@ import {Booking} from '../models/booking.js';
 import {Room}from '../models/room.js';
 import Stripe from 'stripe';
 import { v4 as uuidv4 } from 'uuid';
+import dotenv from 'dotenv';
 const router = express.Router();
-const stripe = new Stripe('sk_test_51Ps4pzC0ikSiOrIz43uYLtpl7PCvc8PzIH61TRmyux3xlURjbFJF3mNmre5yu2U9DJ2aG6pM0IUg5q1NQsijeLkw000CnPVIMg');
+dotenv.config();
+const stripe = new Stripe(process.env.STRIPE_API_KEY);
 router.post('/getBookById', async (req, res) => {
     try { const { userId } = req.body;
         const ans = await Booking.find({ userId });
