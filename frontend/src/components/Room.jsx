@@ -41,6 +41,7 @@ function Room({ room, fromDate, toDate }) {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
+  const hotelroom="hotel room"
 
   return (
     <div className='flex justify-center'>
@@ -52,7 +53,7 @@ function Room({ room, fromDate, toDate }) {
           <p>Rent per Day:{"$"+room.rentperday}</p>
           <p>Type:{" " + room.type}</p>
           <p>Branch Name:{" " + room.branch}</p>
-          <div className="flex gap-2 items-center"><FaLocationDot size={20} color='white'  /> Location :{" " +room.location}</div>
+          <div className="flex gap-2 items-center"><FaLocationDot size={20} color='white'  /> <p><a href={`https://www.google.com/maps?q=${room.location} +${hotelroom}`} target="_blank" rel="noopener noreferrer" className='text-white'>View Map</a></p></div>
           {room.services && room.services.length > 0 && (
             <p className="flex items-center gap-3"><FaCheck className="text-green-500" /> {room.services[0]}</p>
           )}

@@ -7,6 +7,7 @@ import { connectDB } from './db/connectDB.js';
 import userRoutes from './routes/userRoutes.js';
 import roomRoute from './routes/roomRoutes.js';
 import bookingRoute from './routes/bookingRoutes.js';
+import hotelRoute from './routes/hotelRoutes.js'
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,10 +18,26 @@ app.use(cookieParser());
 app.use('/api/auth', userRoutes);
 app.use('/api/routes', roomRoute);
 app.use('/api/routes', bookingRoute);
+app.use('/api/routes',hotelRoute);
 app.listen(PORT, () => {
     connectDB();
     console.log(`Server is running on port: ${PORT}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

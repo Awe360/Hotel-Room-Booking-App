@@ -17,6 +17,13 @@ import ContactPage from "./pages/ContactPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import PrivateRoute from "./components/PrivateRoute";
 import UnAutherized from './pages/UnAutherized'
+import AllHotelsPage from "./pages/HotelPage";
+import HotelDetailPage from "./pages/hotelDetailPage";
+import HotelGuestReviews from "./pages/GuestReview";
+import RegisterHotelPage from "./components/RegistorNewHotel";
+import ManageHotel from "./pages/ManageHotel";
+import NewroomAdmin from "./components/NewroomAdmin";
+
 const ProtectedRoute = ({ children }) => {
 	const { isAuthenticated, user } = useAuthStore();
 
@@ -68,13 +75,14 @@ function App() {
 				<Route path="/profile" element={
 					<ProtectedRoute><ProfileScreen role={user?.role} /></ProtectedRoute>} />
 				
-                <Route path='/home' element={<HomeScreen/>}/>
+             {role !=='admin'? <Route path='/home' element={<AllHotelsPage/>}/>:null}   
 
 
 					{role==='admin'? (<><Route path="/admin" element={
 					<ProtectedRoute><AdminPage/></ProtectedRoute>}/>
+					<Route path="/admin/registerNewHotel" element={<RegisterHotelPage/>}/>
 					</>):(<>
-						<Route path='/' element={<HomeScreen/>}/>
+						<Route path='/' element={<AllHotelsPage/>}/>
 						<Route path='/contact' element={<ContactPage  />}/>
 					</>)}
 					{role==='user' && <Route path='/admin' element={<UnAutherized/>}/>}
@@ -84,7 +92,14 @@ function App() {
 				<Route path='/forgot-password' element={<RedirectAuthenticatedUser><ForgotPasswordPage /></RedirectAuthenticatedUser>} />
 				<Route path='/reset-password/:token' element={<RedirectAuthenticatedUser><ResetPasswordPage /></RedirectAuthenticatedUser>} />
 				<Route path='/about' element={<AboutUsPage/>}/>
-				<Route path='*' element={<HomeScreen/>}/>
+				<Route path='/matchingRoom/:hotelId' element={<HomeScreen/>}/>
+				<Route path='/hotels' element={<AllHotelsPage/>}/>
+				<Route path='/hotels/:hotelId' element={<HotelDetailPage/>}/>
+				<Route path='/review' element={<HotelGuestReviews/>}/>
+				<Route path="/admin/hotels/:hotelId" element={<ManageHotel />} />
+				<Route path="/admin/hotels/newRoom/:hotelId" element={<NewroomAdmin />} />
+				{role==='user' && <Route path='*' element={<AllHotelsPage/>}/>}
+				{role==='admin' && <Route path='*' element={<AdminPage/>}/>}
 				
 			</Routes>
 			<Toaster />

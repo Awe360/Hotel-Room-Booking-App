@@ -49,6 +49,18 @@ router.delete('/deleteRoom', async (req, res) => {
         return res.status(500).json({ message: 'Server error' });
     }
 });
+router.get('/matchingRoom/:hotelId', async (req, res) => {
+    const{hotelId}=req.params;
+    console.log(hotelId);
+    try {
+        const room = await Room.find({hotelId});
+        res.send(room);
+        console.log('Success');
+    } catch (err) {
+        res.json(err);
+        console.log(err);
+    }
+});
 
 router.get('/getroombyid/:id', async (req, res) => {
     const { id } = req.params;

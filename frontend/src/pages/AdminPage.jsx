@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Tabs, Modal, Select } from "antd";
-import BookingAdmin from '../components/BookingAdmin';
-import RoomsAdmin from '../components/RoomsAdmin';
-import NewroomAdmin from '../components/NewroomAdmin';
-import UsersAdmin from '../components/UsersAdmin';
+import React, { useState } from "react";
+import { Modal, Select } from "antd";
+import Sidebar from "../components/AdminSidebar";
+import BookingAdmin from "../components/BookingAdmin";
+import RoomsAdmin from "../components/RoomsAdmin";
+import NewroomAdmin from "../components/NewroomAdmin";
+import UsersAdmin from "../components/UsersAdmin";
+import Hotels from "../components/Hotels";
 
-const { TabPane } = Tabs;
 const { Option } = Select;
 
 function AdminPage() {
@@ -23,7 +24,7 @@ function AdminPage() {
 
     const handleModalOk = () => {
         if (selectedBranch) {
-            setActiveTab("3"); // Set the tab to "Add New Room" tab
+            setActiveTab("3");
             setIsModalVisible(false);
         } else {
             alert("Please select a branch.");
@@ -34,26 +35,31 @@ function AdminPage() {
         setIsModalVisible(false);
     };
 
-    return (
-        <div className='text-center mt-5 mb-10'>
-            <h1 className='text-3xl text-blue-600 font-serif'>Welcome To Admin Dashboard</h1>
-            <div className=" ml-20 mx-auto">
-                <Tabs activeKey={activeTab} onChange={key => setActiveTab(key)}>
-                    <TabPane tab={<span className="text-red-900 text-xl font-serif">Bookings</span>} key="1">
-                        <BookingAdmin />
-                    </TabPane>
-                    <TabPane tab={<span className="text-red-900 text-xl font-serif">Rooms</span>} key="2">
-                        <RoomsAdmin />
-                    </TabPane>
-                    <TabPane tab={<span className="text-red-900 text-xl font-serif" onClick={handleAddRoomClick}>Add new room</span>} key="3">
-                        {selectedBranch && <NewroomAdmin branch={selectedBranch} />}
-                    </TabPane>
-                    <TabPane tab={<span className="text-red-900 text-xl font-serif">Personnels</span>} key="4">
-                        <UsersAdmin />
-                    </TabPane>
-                </Tabs>
-            </div>
+    const renderContent = () => {
+        switch (activeTab) {
+            case "1":
+                return <BookingAdmin />;
+            case "2":
+                return <RoomsAdmin />;
+            case "3":
+                return selectedBranch ? <NewroomAdmin branch={selectedBranch} /> : null;
+            case "4":
+                return <UsersAdmin />;
+            case "5":
+                return <Hotels />;
+            default:
+                return <BookingAdmin />;
+        }
+    };
 
+    return (
+        <div className="flex h-screen">
+            <Sidebar
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                onAddRoomClick={handleAddRoomClick}
+            />
+            <div className="flex-1 py-4 bg-gray-50 overflow-y-auto">{renderContent()}</div>
             <Modal
                 title="Select a Branch"
                 visible={isModalVisible}
@@ -62,15 +68,16 @@ function AdminPage() {
             >
                 <Select
                     placeholder="Select a branch"
-                    style={{ width: '100%' }}
+                    style={{ width: "100%" }}
                     onChange={handleBranchSelect}
                 >
                     <Option value="Main">Main</Option>
-                    <Option value="MGN">MGN</Option>
-                    <Option value="BOL">BOL</Option>
-                    <Option value="4K">4K</Option>
-                    <Option value="5K">5K</Option>
-                    <Option value="6K">6K</Option>
+                    <Option value="MGN">Megenagna</Option>
+                    <Option value="BOL">Bole</Option>
+                    <Option value="4K">4 Kilo</Option>
+                    <Option value="5K">5 Kilo</Option>
+                    <Option value="6K">6 Kilo</Option>
+                    <Option value="6K">Merkato</Option>
                 </Select>
             </Modal>
         </div>

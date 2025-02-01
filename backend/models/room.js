@@ -5,6 +5,10 @@ const roomSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    hotelId: {
+        type: String,
+        required: true, // Must match a hotelId in the Hotel schema
+      },
     maxcount: {
         type: Number,
         required: true,

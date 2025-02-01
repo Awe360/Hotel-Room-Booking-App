@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 
 function ProfileScreen() {
-  const [user, setUser] = useState(null); // State for user data
-  const [loading, setLoading] = useState(true); // State to track loading
+  const [user, setUser] = useState(null); 
+  const [loading, setLoading] = useState(true); 
   const navigate=useNavigate()
   const goToAdminPage=()=>{
     navigate('/admin')
@@ -21,17 +21,17 @@ function ProfileScreen() {
     if (storedUser && storedUser !== 'undefined') {
       setUser(JSON.parse(storedUser));
     } else {
-      window.location.href = '/login'; // Redirect if user is not found
+      window.location.href = '/login'; 
     }
-    setLoading(false); // Stop loading once user data is fetched
+    setLoading(false); 
   }, []);
 
   if (loading) {
-    return <Loader />; // Show a loader while fetching the user data
+    return <Loader />; 
   }
 
   if (!user) {
-    return null; // Prevent rendering if no user is found (safety net)
+    return null; 
   }
   
 

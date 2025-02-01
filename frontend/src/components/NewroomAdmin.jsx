@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Loader from './Loader';
 import Swal from 'sweetalert2';
+import { useParams } from 'react-router-dom';
 
 function NewroomAdmin({branch}) {
   const [error, setError] = useState(false);
@@ -15,9 +16,10 @@ function NewroomAdmin({branch}) {
   const [phone, setPhone] = useState('');
   const [services, setServices] = useState(['']);
   const [images, setImages] = useState(['']);
-
+const {hotelId}=useParams();
   const addRoom = async () => {
     const newRoom = {
+      hotelId,
       name,
       maxcount: capacity,
       phonenumber: phone,
@@ -99,8 +101,8 @@ function NewroomAdmin({branch}) {
   return (
     <div>
       <div className="flex flex-col mx-auto bg-emerald-300 w-[500px] rounded-xl shadow-xl shadow-black">
-        <h1 className='text-2xl font-serif'>New Room Details</h1>
-        <input type="text" className='border-2 mx-auto p-1 outline-none text-lg my-2 w-[400px]' placeholder='Room name' value={name} onChange={(e) => setName(e.target.value)} />
+        <h1 className='text-2xl font-serif text-center'>New Room Details</h1>
+        <input type="text" className='border-2 mx-auto p-1 outline-none text-lg my-2 w-[400px]' placeholder='Room ID' value={name} onChange={(e) => setName(e.target.value)} />
         <input type="text" className='border-2 p-1 mx-auto outline-none text-lg my-2 w-[400px]' placeholder='Location' value={location} onChange={(e) => setLocation(e.target.value)} />
         <input type="number" className='border-2 p-1 mx-auto outline-none text-lg my-2 w-[400px]' placeholder='Rent per day' value={rentperday} onChange={(e) => setRentperday(e.target.value)} />
         <input type="number" className='border-2 p-1 mx-auto outline-none text-lg my-2 w-[400px]' placeholder='Capacity' value={capacity} onChange={(e) => setCapacity(e.target.value)} min={0} />

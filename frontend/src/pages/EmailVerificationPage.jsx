@@ -55,7 +55,7 @@ const EmailVerificationPage = () => {
 		}
 	};
 
-	// Auto submit when all fields are filled
+	
 	useEffect(() => {
 		if (code.every((digit) => digit !== "")) {
 			handleSubmit(new Event("submit"));
@@ -77,7 +77,7 @@ const EmailVerificationPage = () => {
 
 				<form onSubmit={handleSubmit} className='space-y-6'>
 					<div className='flex justify-between'>
-						{code.map((digit, index) => (
+						{code.map((digit,index) => (
 							<input
 								key={index}
 								ref={(el) => (inputRefs.current[index] = el)}

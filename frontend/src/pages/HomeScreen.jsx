@@ -7,6 +7,9 @@ import moment from "moment";
 import "./hs.css";
 import { motion } from "framer-motion";
 import { IoSearchOutline } from "react-icons/io5";
+import Footer from "../components/Footer";
+import { useParams, useNavigate } from "react-router-dom";
+import NoRoomFound from "../components/NoRoomFound";
 function HomeScreen() {
   const { RangePicker } = DatePicker;
   const [data, setData] = useState([]);
@@ -18,13 +21,15 @@ function HomeScreen() {
   const [searchVal, setSearchVal] = useState("");
   const [sortCriteria, setSortCriteria] = useState(""); // New state for sort criteria
   const[dep,setDep]=useState('')
-
+  const { hotelId } = useParams();
   useEffect(() => {
     const fetchData = async () => {
+      
       try {
-        const res = await axios.get("http://localhost:5000/api/routes/all");
+        const res = await axios.get(`http://localhost:5000/api/routes/matchingRoom/${hotelId}`);
         setData(res.data);
         setDep(res.data)
+        console.log("length:",data.length);
         setDuplicate(res.data);
         setLoading(false);
       } catch (err) {
@@ -120,11 +125,11 @@ function HomeScreen() {
         
         <input
           type="search"
-          placeholder="Search rooms"
+          placeholder="Search names"
           className="h-10 w-1/3 relative outline-none border-2 text-blue-600 text-xl rounded-3xl p-2"
           onChange={filterBySearch} 
         />
-        <IoSearchOutline className="absolute ml-[7%] sm:ml-[20%] md:ml-[16%] lg:ml-[30%]" size={30}/>
+      
         <select
           name="sel"
           id=""
@@ -135,6 +140,7 @@ function HomeScreen() {
           <option value="delux">Delux</option>
           <option value="none delux">Non-Delux</option>
         </select>
+        
 
         {/* Dropdown for sorting by price or capacity */}
         <select
@@ -165,6 +171,9 @@ function HomeScreen() {
           </motion.div>
         ))
       )}
+     {data.length === 0 && !loading && !error && <NoRoomFound />}
+      {data.length>0 &&<Footer/>}
+
     </div>
   );
 }
