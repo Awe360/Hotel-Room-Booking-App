@@ -3,7 +3,7 @@ import { Tabs } from "antd";
 import axios from 'axios';
 import Loader from '../components/Loader';
 import Swal from 'sweetalert2';
-import image from '../assets/image.png'
+import image from '../assets/image3.png'
 import {motion} from 'framer-motion'
 const { TabPane } = Tabs;
 import { useNavigate } from "react-router-dom";
